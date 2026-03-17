@@ -46,12 +46,13 @@ a {
 }
 
 .pageBg {
+  position: relative;
   min-height: 100vh;
-  padding: 48px 12px 68px;
+  padding: 10px 6px 14px;
 }
 
 .landingShell {
-  width: min(396px, calc(100vw - 24px));
+  width: min(396px, calc(100vw - 12px));
   margin: 0 auto;
   overflow: hidden;
   border-radius: 5px;
@@ -443,12 +444,11 @@ a {
 
 @media (max-width: 420px) {
   .pageBg {
-    padding-top: 26px;
-    padding-bottom: 34px;
+    padding: 6px 4px 10px;
   }
 
   .landingShell {
-    width: min(396px, calc(100vw - 16px));
+    width: min(396px, calc(100vw - 8px));
   }
 
   .heroSection,
@@ -470,9 +470,293 @@ a {
   }
 }
 
-@media (min-width: 481px) and (max-width: 1023px) {
+@media (min-width: 481px) and (max-width: 767px) {
   .pageBg {
-    padding-top: 44px;
+    padding: 10px 8px 14px;
+  }
+
+  .landingShell {
+    width: min(404px, calc(100vw - 16px));
+  }
+
+  .heroSection,
+  .aboutSection,
+  .issuesSection,
+  .pricingSection {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .heroName {
+    font-size: 44px;
+  }
+
+  .quoteCard {
+    width: min(74%, 286px);
+  }
+
+  .aboutText,
+  .pricingNote {
+    width: 74%;
+  }
+
+  .contactsLink {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .pageBg {
+    padding: 12px 10px 16px;
+  }
+
+  .landingShell {
+    width: min(404px, calc(100vw - 20px));
+    border-radius: 6px;
+  }
+
+  .heroSection,
+  .aboutSection,
+  .issuesSection,
+  .pricingSection {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .heroName {
+    font-size: 44px;
+  }
+
+  .quoteCard {
+    width: min(74%, 292px);
+    bottom: -28px;
+  }
+
+  .aboutText {
+    width: 74%;
+  }
+
+  .issuesTitle {
+    margin-bottom: 18px;
+  }
+
+  .pricingNote {
+    width: 70%;
+  }
+
+  .contactsLink {
+    font-size: 11px;
+    letter-spacing: 0.035em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pageBg {
+    padding: 8px 6px 12px;
+  }
+
+  .landingShell {
+    width: min(1120px, calc(100vw - 12px));
+    display: block;
+    background: var(--surface);
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .heroSection,
+  .aboutSection,
+  .issuesSection,
+  .pricingSection,
+  .contactsSection {
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .heroSection {
+    padding: 28px 34px 34px;
+  }
+
+  .heroName {
+    font-size: clamp(52px, 6vw, 74px);
+  }
+
+  .heroRole {
+    font-size: 12px;
+  }
+
+  .heroImageWrap {
+    margin-bottom: 58px;
+  }
+
+  .quoteCard {
+    width: min(56%, 380px);
+    bottom: -36px;
+    padding: 18px 20px 16px;
+  }
+
+  .quoteCardText {
+    font-size: 13px;
+  }
+
+  .ctaButton {
+    min-height: 48px;
+    font-size: 12px;
+  }
+
+  .aboutSection {
+    padding: 34px 28px 30px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(30px, 2vw, 36px);
+  }
+
+  .aboutText {
+    width: min(72%, 620px);
+    margin-top: 16px;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .aboutImage {
+    aspect-ratio: 2.05 / 1;
+  }
+
+  .issuesSection {
+    padding: 30px 34px 30px;
+    position: static;
+  }
+
+  .issuesTitle {
+    width: min(320px, 100%);
+    font-size: 28px;
+    margin-bottom: 22px;
+  }
+
+  .issuesFrame {
+    padding: 18px;
+    display: block;
+  }
+
+  .issueCard {
+    min-height: 132px;
+  }
+
+  .issueCard + .issueCard,
+  .issuesFlower + .issueCard,
+  .issueCard + .issuesFlower {
+    margin-top: 14px;
+  }
+
+  .issueCardTitle,
+  .pricingCardTitle {
+    font-size: 14px;
+  }
+
+  .issueCardDescription {
+    font-size: 13px;
+  }
+
+  .issuesFlower {
+    min-height: 132px;
+  }
+
+  .pricingSection {
+    display: block;
+    padding: 34px 34px 34px;
+  }
+
+  .pricingTitle {
+    margin-bottom: 22px;
+  }
+
+  .pricingStack {
+    gap: 16px;
+  }
+
+  .pricingFlower,
+  .seaImage {
+    aspect-ratio: 2.25 / 1;
+  }
+
+  .pricingCardHeader {
+    min-height: 20px;
+  }
+
+  .pricingMetaRow {
+    min-height: 44px;
+  }
+
+  .pricingNote {
+    width: min(72%, 620px);
+    margin: 24px auto 0;
+    text-align: center;
+  }
+
+  .pricingNote p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .contactsTitle {
+    bottom: 24px;
+    font-size: clamp(32px, 2.3vw, 40px);
+  }
+
+  .contactsImage {
+    aspect-ratio: 2.3 / 1;
+  }
+
+  .contactsLinks {
+    min-height: 52px;
+  }
+
+  .contactsLink {
+    min-height: 52px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (min-width: 1280px) {
+  .pageBg {
+    padding: 8px 6px 12px;
+  }
+
+  .landingShell {
+    width: min(1320px, calc(100vw - 12px));
+  }
+
+  .heroSection,
+  .aboutSection,
+  .pricingSection,
+  .issuesSection {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .heroName {
+    font-size: 74px;
+  }
+
+  .quoteCard {
+    width: min(50%, 396px);
+  }
+
+  .aboutText {
+    width: min(68%, 680px);
+  }
+
+  .pricingNote {
+    width: min(66%, 640px);
+  }
+
+  .issuesTitle {
+    width: min(360px, 100%);
+  }
+
+  .contactsImage {
+    aspect-ratio: 2.5 / 1;
   }
 }
 
