@@ -25,14 +25,14 @@ export const landingContent = {
       'ПОМОГУ РАЗРЕШИТЬ ВНУТРЕННИЕ КОНФЛИКТЫ, РАЗОБРАТЬСЯ В СЕБЕ И СВОИХ ЧУВСТВАХ И ПРИБЛИЗИТЬСЯ К НАСТОЯЩЕМУ СПОКОЙСТВИЮ.',
     ctaLabel: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
     imageSrc: assetPath('hero-photo.png'),
-    imageAlt: 'Владислава лежит на светлом диване',
+    imageAlt: 'Юлия лежит на светлом диване',
   },
   about: {
     title: 'ОБО МНЕ',
     text:
       'Меня зовут Юлия, и я практикующий психолог-консультант, в своей работе я опираюсь на доказательные методы психотерапии и работаю преимущественно в когнитивно-поведенческом подходе (КПТ).',
     imageSrc: assetPath('about-photo.png'),
-    imageAlt: 'Портрет Владиславы в светлом интерьере',
+    imageAlt: 'Портрет Юлии в светлом интерьере',
   },
   issues: {
     title: 'С КАКИМИ ПРОБЛЕМАМИ Я РАБОТАЮ:',
@@ -111,7 +111,7 @@ export const landingContent = {
   contacts: {
     title: 'КОНТАКТЫ',
     imageSrc: assetPath('contacts-photo.png'),
-    imageAlt: 'Владислава на берегу моря',
+    imageAlt: 'Юлия на берегу моря',
     items: [
       { label: 'WHATSAPP', href: links.whatsapp },
       { label: 'TELEGRAM', href: links.telegram },
