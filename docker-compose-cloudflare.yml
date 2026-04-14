@@ -1,0 +1,47 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_CTA_URL=${VITE_CTA_URL}
+        - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
+        - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+        - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
+    ports:
+      - "4173:4173"
+    environment:
+      - VITE_CTA_URL=${VITE_CTA_URL}
+      - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
+      - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+      - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
+    command: serve -s dist -l 4173
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    depends_on:
+      - app
+    command: >
+      tunnel
+      --url http://app:4173
+      --hostname yuliakimlach.ru
+      --hostname www.yuliakimlach.ru
+      run
+      --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    restart: unless-stopped
+    network_mode: "host"
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  cloudflared-config:
