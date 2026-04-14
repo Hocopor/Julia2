@@ -50,6 +50,36 @@ npm run preview
 - `VITE_TELEGRAM_URL`
 - `VITE_DEVELOPED_BY_URL`
 
+## Docker + Cloudflare Tunnel (полная автоматизация)
+
+Для автоматического деплоя через Docker и Cloudflare Tunnel:
+
+### Быстрый старт (3 минуты):
+```bash
+# 1. Настройте .env
+cp .env.example .env
+# Отредактируйте .env, добавьте токен и домен
+
+# 2. Запустите автоматический деплой
+./auto-deploy-cloudflare.sh
+```
+
+### Полная документация:
+- [DOCKER-DEPLOY.md](DOCKER-DEPLOY.md) - полная инструкция по Docker деплою и Cloudflare Tunnel
+
+### Основные файлы:
+- `docker-compose.yml` - базовая конфигурация Docker
+- `docker-compose-cloudflare.yml` - с автоматической настройкой DNS
+- `Dockerfile` - сборка приложения
+- `auto-deploy-cloudflare.sh` - скрипт полной автоматизации
+
+### Что нужно сделать:
+1. Создайте туннель в Cloudflare Zero Trust
+2. Сохраните токен в `.env` как `CLOUDFLARE_TUNNEL_TOKEN`
+3. Укажите домен в `.env` как `CLOUDFLARE_DOMAIN`
+4. Запустите скрипт деплоя
+5. (Опционально) Настройте DNS автоматически через API токен
+
 ## Ассеты
 
 В `public/assets/` сейчас лежат валидные `jpg`-placeholder-файлы:

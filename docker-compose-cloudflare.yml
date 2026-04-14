@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # Основное приложение - React сайт
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    environment:
+      - VITE_CTA_URL=${VITE_CTA_URL}
+      - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
+      - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+      - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
+    volumes:
+      - ./public:/app/public
+      - ./src:/app/src
+    command: npm run preview
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Cloudflare Tunnel с автоматической настройкой
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+      - TUNNEL_HOSTNAME=${CLOUDFLARE_DOMAIN}
+      - TUNNEL_NAME=${CLOUDFLARE_TUNNEL_NAME:-julia2-site}
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN:-}
+      - CLOUDFLARE_ACCOUNT_ID=${CLOUDFLARE_ACCOUNT_ID:-}
+    command: >
+      sh -c "
+      # Ждем запуска приложения
+      sleep 10 &&
+      
+      # Если есть API токен, пытаемся настроить DNS автоматически
+      if [ -n \"$$CLOUDFLARE_API_TOKEN\" ] && [ -n \"$$CLOUDFLARE_ACCOUNT_ID\" ]; then
+        echo 'Настраиваем DNS автоматически через Cloudflare API...' &&
+        
+        # Создаем туннель (если еще не создан)
+        cloudflared tunnel create $${TUNNEL_NAME} || echo 'Туннель уже существует' &&
+        
+        # Настраиваем DNS запись
+        cloudflared tunnel route dns $${TUNNEL_NAME} $${TUNNEL_HOSTNAME} &&
+        
+        # Также настраиваем www поддомен
+        cloudflared tunnel route dns $${TUNNEL_NAME} www.$${TUNNEL_HOSTNAME} || echo 'www поддомен не настроен' &&
+        
+        echo 'DNS настроены автоматически'
+      else
+        echo 'API токен не указан. Настройте DNS вручную в Cloudflare Dashboard:'
+        echo '1. Zero Trust → Access → Tunnels'
+        echo '2. Выберите туннель: $${TUNNEL_NAME}'
+        echo '3. Configure → Public Hostname'
+        echo '4. Добавьте: Hostname: $${TUNNEL_HOSTNAME}, Service: http://app:4173'
+      fi &&
+      
+      # Запускаем туннель
+      echo 'Запускаем Cloudflare Tunnel...' &&
+      cloudflared tunnel run $${TUNNEL_NAME}
+      "
+    restart: unless-stopped
+    volumes:
+      - cloudflared-config:/etc/cloudflared
+      - ./cloudflared-creds:/root/.cloudflared
+    # Пробрасываем сокет Docker для управления
+    network_mode: "host"
+
+  # Мониторинг и логи (опционально)
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 300 --cleanup
+    restart: unless-stopped
+    # Раскомментировать для автоматического обновления образов
+    # environment:
+    #   - WATCHTOWER_NOTIFICATIONS=email
+    #   - WATCHTOWER_NOTIFICATION_EMAIL_FROM=from@example.com
+    #   - WATCHTOWER_NOTIFICATION_EMAIL_TO=to@example.com
+    #   - WATCHTOWER_NOTIFICATION_EMAIL_SERVER=smtp.example.com
+    #   - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT=587
+    #   - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=user
+    #   - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=password
+
+volumes:
+  cloudflared-config:
+  cloudflared-creds:

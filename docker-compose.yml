@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Основное приложение - React сайт
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    environment:
+      - VITE_CTA_URL=${VITE_CTA_URL}
+      - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
+      - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+      - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
+    volumes:
+      - ./public:/app/public
+      - ./src:/app/src
+    command: npm run preview
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Cloudflare Tunnel для доступа из интернета
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    depends_on:
+      - app
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+      - TUNNEL_HOSTNAME=${CLOUDFLARE_DOMAIN}
+      - TUNNEL_NAME=${CLOUDFLARE_TUNNEL_NAME:-julia2-site}
+    command: tunnel run
+    restart: unless-stopped
+    volumes:
+      - cloudflared-config:/etc/cloudflared
+    # Для автоматической настройки DNS (требуется API токен)
+    # command: >
+    #   sh -c "
+    #   cloudflared tunnel create ${CLOUDFLARE_TUNNEL_NAME:-julia2-site} || true &&
+    #   cloudflared tunnel route dns ${CLOUDFLARE_TUNNEL_NAME:-julia2-site} ${CLOUDFLARE_DOMAIN} &&
+    #   cloudflared tunnel run ${CLOUDFLARE_TUNNEL_NAME:-julia2-site}
+    #   "
+
+  # Nginx для статики (опционально)
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./dist:/usr/share/nginx/html
+      - ./ssl:/etc/nginx/ssl
+    restart: unless-stopped
+    # Раскомментировать, если хотите использовать nginx вместо preview сервера
+    # command: nginx -g 'daemon off;'
+
+volumes:
+  cloudflared-config:
