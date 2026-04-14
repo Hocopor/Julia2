@@ -8,6 +8,7 @@ ARG VITE_CTA_URL
 ARG VITE_WHATSAPP_URL
 ARG VITE_TELEGRAM_URL
 ARG VITE_DEVELOPED_BY_URL
+ARG VITE_BASE_PATH
 
 # Копируем package.json и package-lock.json
 COPY package*.json ./
@@ -18,11 +19,15 @@ RUN npm ci
 # Копируем исходный код
 COPY . .
 
+# Копируем production env файл если существует
+COPY .env.production .env.production
+
 # Собираем приложение с переменными окружения
 RUN VITE_CTA_URL=${VITE_CTA_URL} \
     VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL} \
     VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL} \
     VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL} \
+    VITE_BASE_PATH=${VITE_BASE_PATH:-/} \
     npm run build
 
 # Этап запуска

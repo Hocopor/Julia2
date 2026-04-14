@@ -8,6 +8,7 @@ services:
         - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
         - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
         - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
+        - VITE_BASE_PATH=/
     ports:
       - "4173:4173"
     environment:
