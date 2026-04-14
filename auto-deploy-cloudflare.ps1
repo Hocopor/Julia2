@@ -1,12 +1,12 @@
 # Полная автоматизация деплоя через Cloudflare Tunnel для Windows
 # Использование: .\auto-deploy-cloudflare.ps1
 
-Write-Host "🚀 Полная автоматизация деплоя через Cloudflare Tunnel..." -ForegroundColor Green
-Write-Host "========================================================" -ForegroundColor Cyan
+Write-Host "=== Полная автоматизация деплоя через Cloudflare Tunnel ===" -ForegroundColor Green
+Write-Host "==========================================================" -ForegroundColor Cyan
 
 # Проверяем наличие .env файла
 if (-not (Test-Path .env)) {
-    Write-Host "❌ Файл .env не найден." -ForegroundColor Red
+    Write-Host "[ERROR] Файл .env не найден." -ForegroundColor Red
     Write-Host ""
     Write-Host "Создайте .env файл:" -ForegroundColor Yellow
     Write-Host "Copy-Item .env.example .env" -ForegroundColor Gray
@@ -43,7 +43,7 @@ if (-not $env:CLOUDFLARE_TUNNEL_TOKEN) { $MISSING_VARS += "CLOUDFLARE_TUNNEL_TOK
 if (-not $env:CLOUDFLARE_DOMAIN) { $MISSING_VARS += "CLOUDFLARE_DOMAIN" }
 
 if ($MISSING_VARS.Count -gt 0) {
-    Write-Host "❌ Отсутствуют обязательные переменные в .env:" -ForegroundColor Red
+    Write-Host "[ERROR] Отсутствуют обязательные переменные в .env:" -ForegroundColor Red
     foreach ($var in $MISSING_VARS) {
         Write-Host "   - $var" -ForegroundColor Yellow
     }
@@ -56,13 +56,13 @@ $HAS_API_ACCESS = $false
 
 if ($env:CLOUDFLARE_API_TOKEN -and $env:CLOUDFLARE_ACCOUNT_ID) {
     $HAS_API_ACCESS = $true
-    Write-Host "✅ Обнаружен API доступ к Cloudflare" -ForegroundColor Green
+    Write-Host "[OK] Обнаружен API доступ к Cloudflare" -ForegroundColor Green
 } else {
-    Write-Host "ℹ️  API доступ не настроен. DNS нужно настроить вручную." -ForegroundColor Yellow
+    Write-Host "[INFO] API доступ не настроен. DNS нужно настроить вручную." -ForegroundColor Yellow
 }
 
 Write-Host ""
-Write-Host "📋 Конфигурация:" -ForegroundColor Cyan
+Write-Host "=== Конфигурация ===" -ForegroundColor Cyan
 Write-Host "   • Домен: $($env:CLOUDFLARE_DOMAIN)" -ForegroundColor White
 Write-Host "   • Имя туннеля: $TUNNEL_NAME" -ForegroundColor White
 Write-Host "   • Автоматическая настройка DNS: $HAS_API_ACCESS" -ForegroundColor White
@@ -71,9 +71,9 @@ Write-Host ""
 # Проверяем Docker
 try {
     $dockerVersion = docker --version
-    Write-Host "✅ Docker установлен: $dockerVersion" -ForegroundColor Green
+    Write-Host "[OK] Docker установлен: $dockerVersion" -ForegroundColor Green
 } catch {
-    Write-Host "❌ Docker не установлен" -ForegroundColor Red
+    Write-Host "[ERROR] Docker не установлен" -ForegroundColor Red
     Write-Host "Установите Docker Desktop: https://docs.docker.com/desktop/install/windows-install/" -ForegroundColor Yellow
     exit 1
 }
@@ -81,37 +81,34 @@ try {
 # Проверяем Docker Compose
 try {
     $composeVersion = docker-compose --version
-    Write-Host "✅ Docker Compose установлен: $composeVersion" -ForegroundColor Green
+    Write-Host "[OK] Docker Compose установлен: $composeVersion" -ForegroundColor Green
 } catch {
     try {
         $composeVersion = docker compose version
-        Write-Host "✅ Docker Compose (новый формат) установлен" -ForegroundColor Green
+        Write-Host "[OK] Docker Compose (новый формат) установлен" -ForegroundColor Green
     } catch {
-        Write-Host "❌ Docker Compose не установлен" -ForegroundColor Red
+        Write-Host "[ERROR] Docker Compose не установлен" -ForegroundColor Red
         Write-Host "Установите Docker Compose: https://docs.docker.com/compose/install/" -ForegroundColor Yellow
         exit 1
     }
 }
 
-# Собираем проект
+# Собираем проект через Docker
 Write-Host ""
-Write-Host "📦 Собираем проект..." -ForegroundColor Yellow
-npm run build
-
-# Запускаем Docker Compose
-Write-Host ""
-Write-Host "🚀 Запускаем Docker Compose..." -ForegroundColor Yellow
+Write-Host "[INFO] Собираем проект через Docker..." -ForegroundColor Yellow
 
 if ($HAS_API_ACCESS) {
     Write-Host "Используем автоматическую настройку DNS..." -ForegroundColor Cyan
+    docker-compose -f docker-compose-cloudflare.yml build
     docker-compose -f docker-compose-cloudflare.yml up -d
 } else {
     Write-Host "Используем базовую конфигурацию..." -ForegroundColor Cyan
+    docker-compose build
     docker-compose up -d
 }
 
 Write-Host ""
-Write-Host "⏳ Ожидаем запуска (40 секунд)..." -ForegroundColor Yellow
+Write-Host "[INFO] Ожидаем запуска (40 секунд)..." -ForegroundColor Yellow
 Start-Sleep -Seconds 40
 
 # Проверяем статус
@@ -152,21 +149,21 @@ if ($HAS_API_ACCESS) {
 }
 
 Write-Host ""
-Write-Host "✅ Проверьте работу:" -ForegroundColor Cyan
+Write-Host "[OK] Проверьте работу:" -ForegroundColor Cyan
 Write-Host "   https://$($env:CLOUDFLARE_DOMAIN)" -ForegroundColor Gray
 Write-Host ""
-Write-Host "🛠️  Управление:" -ForegroundColor Cyan
+Write-Host "[INFO] Управление:" -ForegroundColor Cyan
 Write-Host "   • Логи: docker-compose logs -f" -ForegroundColor Gray
 Write-Host "   • Остановка: docker-compose down" -ForegroundColor Gray
 Write-Host "   • Перезапуск: docker-compose restart" -ForegroundColor Gray
 Write-Host "   • Обновление: docker-compose pull && docker-compose up -d" -ForegroundColor Gray
 Write-Host ""
-Write-Host "📁 Файлы конфигурации:" -ForegroundColor Cyan
+Write-Host "[INFO] Файлы конфигурации:" -ForegroundColor Cyan
 Write-Host "   • docker-compose.yml - базовая конфигурация" -ForegroundColor Gray
 Write-Host "   • docker-compose-cloudflare.yml - с автоматической настройкой DNS" -ForegroundColor Gray
 Write-Host "   • Dockerfile - сборка приложения" -ForegroundColor Gray
 Write-Host ""
-Write-Host "🔧 Для отладки:" -ForegroundColor Cyan
+Write-Host "[INFO] Для отладки:" -ForegroundColor Cyan
 Write-Host "   docker-compose logs cloudflared" -ForegroundColor Gray
 Write-Host "   docker-compose exec app sh" -ForegroundColor Gray
 Write-Host ""

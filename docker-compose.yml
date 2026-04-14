@@ -6,6 +6,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - VITE_CTA_URL=${VITE_CTA_URL}
+        - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
+        - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+        - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
     ports:
       - "4173:4173"
     environment:
@@ -13,9 +18,6 @@ services:
       - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
       - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
       - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
-    volumes:
-      - ./public:/app/public
-      - ./src:/app/src
     command: npm run preview
     restart: unless-stopped
     healthcheck:

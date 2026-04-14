@@ -5,12 +5,12 @@
 
 set -e
 
-echo "🚀 Полная автоматизация деплоя через Cloudflare Tunnel..."
-echo "========================================================"
+echo "=== Полная автоматизация деплоя через Cloudflare Tunnel ==="
+echo "=========================================================="
 
 # Проверяем наличие .env файла
 if [ ! -f .env ]; then
-    echo "❌ Файл .env не найден."
+    echo "[ERROR] Файл .env не найден."
     echo ""
     echo "Создайте .env файл:"
     echo "cp .env.example .env"
@@ -41,7 +41,7 @@ MISSING_VARS=()
 [ -z "$CLOUDFLARE_DOMAIN" ] && MISSING_VARS+=("CLOUDFLARE_DOMAIN")
 
 if [ ${#MISSING_VARS[@]} -gt 0 ]; then
-    echo "❌ Отсутствуют обязательные переменные в .env:"
+    echo "[ERROR] Отсутствуют обязательные переменные в .env:"
     for var in "${MISSING_VARS[@]}"; do
         echo "   - $var"
     done
@@ -54,13 +54,13 @@ HAS_API_ACCESS=false
 
 if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
     HAS_API_ACCESS=true
-    echo "✅ Обнаружен API доступ к Cloudflare"
+    echo "[OK] Обнаружен API доступ к Cloudflare"
 else
-    echo "ℹ️  API доступ не настроен. DNS нужно настроить вручную."
+    echo "[INFO] API доступ не настроен. DNS нужно настроить вручную."
 fi
 
 echo ""
-echo "📋 Конфигурация:"
+echo "=== Конфигурация ==="
 echo "   • Домен: $CLOUDFLARE_DOMAIN"
 echo "   • Имя туннеля: $TUNNEL_NAME"
 echo "   • Автоматическая настройка DNS: $HAS_API_ACCESS"
@@ -68,7 +68,7 @@ echo ""
 
 # Проверяем Docker
 if ! command -v docker &> /dev/null; then
-    echo "❌ Docker не установлен"
+    echo "[ERROR] Docker не установлен"
     echo "Установите Docker: https://docs.docker.com/get-docker/"
     exit 1
 fi
@@ -79,16 +79,20 @@ if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/
     exit 1
 fi
 
-echo "✅ Docker и Docker Compose готовы"
+echo "[OK] Docker и Docker Compose готовы"
 
-# Собираем проект
+# Собираем проект через Docker
 echo ""
-echo "📦 Собираем проект..."
-npm run build
+echo "[INFO] Собираем проект через Docker..."
+if [ "$HAS_API_ACCESS" = true ]; then
+    docker-compose -f docker-compose-cloudflare.yml build
+else
+    docker-compose build
+fi
 
 # Запускаем Docker Compose
 echo ""
-echo "🚀 Запускаем Docker Compose..."
+echo "[INFO] Запускаем Docker Compose..."
 
 if [ "$HAS_API_ACCESS" = true ]; then
     echo "Используем автоматическую настройку DNS..."
@@ -140,21 +144,21 @@ else
 fi
 
 echo ""
-echo "✅ Проверьте работу:"
+echo "[OK] Проверьте работу:"
 echo "   https://$CLOUDFLARE_DOMAIN"
 echo ""
-echo "🛠️  Управление:"
+echo "[INFO] Управление:"
 echo "   • Логи: docker-compose logs -f"
 echo "   • Остановка: docker-compose down"
 echo "   • Перезапуск: docker-compose restart"
 echo "   • Обновление: docker-compose pull && docker-compose up -d"
 echo ""
-echo "📁 Файлы конфигурации:"
+echo "[INFO] Файлы конфигурации:"
 echo "   • docker-compose.yml - базовая конфигурация"
 echo "   • docker-compose-cloudflare.yml - с автоматической настройкой DNS"
 echo "   • Dockerfile - сборка приложения"
 echo ""
-echo "🔧 Для отладки:"
+echo "[INFO] Для отладки:"
 echo "   docker-compose logs cloudflared"
 echo "   docker-compose exec app sh"
 echo ""

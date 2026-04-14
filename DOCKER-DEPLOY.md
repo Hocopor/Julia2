@@ -53,12 +53,10 @@ chmod +x auto-deploy-cloudflare.sh
 ./auto-deploy-cloudflare.sh
 ```
 
-**Или вручную:**
+**Или вручную через Docker:**
 ```bash
-# Соберите проект
-npm run build
-
-# Запустите Docker Compose
+# Соберите и запустите проект через Docker Compose
+docker-compose build
 docker-compose up -d
 
 # Проверьте статус
