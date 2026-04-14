@@ -18,7 +18,7 @@ services:
       - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
       - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
       - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
-    command: npm run preview
+    command: serve -s dist -l 4173
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4173"]

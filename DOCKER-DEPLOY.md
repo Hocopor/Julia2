@@ -44,6 +44,9 @@ CLOUDFLARE_TUNNEL_NAME=julia2-site  # по умолчанию
 - Скопируйте токен
 
 ### Шаг 3: Запуск деплоя
+sudo chown -R $USER:$USER .../Julia2
+sudo chmod -R 755 .../Julia2
+git pull origin main
 
 ```bash
 # Дайте права на выполнение скрипта (Linux/macOS)
@@ -56,7 +59,7 @@ chmod +x auto-deploy-cloudflare.sh
 **Или вручную через Docker:**
 ```bash
 # Соберите и запустите проект через Docker Compose
-docker-compose build
+docker compose up -d --build 
 docker-compose up -d
 
 # Проверьте статус

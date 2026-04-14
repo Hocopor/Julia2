@@ -37,17 +37,14 @@ RUN npm install -g serve
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 
-# Устанавливаем только production зависимости для preview
-RUN npm ci --only=production
-
-# Копируем исходный код для dev режима (опционально)
-COPY . .
+# Устанавливаем ВСЕ зависимости (включая dev) для vite preview
+RUN npm ci
 
 # Экспортируем порт
 EXPOSE 4173
 
-# Запускаем preview сервер
-CMD ["npm", "run", "preview"]
+# Запускаем через serve (проще и надёжнее)
+CMD ["serve", "-s", "dist", "-l", "4173"]
 
-# Альтернатива: использовать serve для статики
-# CMD ["serve", "-s", "dist", "-l", "4173"]
+# Альтернатива: использовать vite preview (требует dev dependencies)
+# CMD ["npm", "run", "preview"]
