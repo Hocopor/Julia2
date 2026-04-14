@@ -24,25 +24,37 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+    networks:
+      - julia_net
 
   cloudflared:
     image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    env_file:
+      - .env
     depends_on:
       - app
-    command: >
-      tunnel
-      --url http://app:4173
-      --hostname yuliakimlach.ru
-      --hostname www.yuliakimlach.ru
-      run
-      --token ${CLOUDFLARE_TUNNEL_TOKEN}
-    restart: unless-stopped
-    network_mode: "host"
     dns:
       - 1.1.1.1
       - 1.0.0.1
+      - 8.8.8.8
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - julia_net
+    command:
+      - tunnel
+      - --no-autoupdate
+      - run
+      - --protocol
+      - auto
+      - --token
+      - ${CLOUDFLARE_TUNNEL_TOKEN}
+      - --url
+      - http://app:4173
+
+networks:
+  julia_net:
 
 volumes:
   cloudflared-config:
