@@ -47,6 +47,10 @@ CLOUDFLARE_TUNNEL_NAME=julia2-site  # по умолчанию
 sudo chown -R $USER:$USER .../Julia2
 sudo chmod -R 755 .../Julia2
 git pull origin main
+# Если не работает:
+# 1. Обнови репозиторий (принудительно)
+git fetch origin
+git reset --hard origin/main
 
 ```bash
 # Дайте права на выполнение скрипта (Linux/macOS)

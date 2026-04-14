@@ -32,14 +32,12 @@ services:
     image: cloudflare/cloudflared:latest
     depends_on:
       - app
-    environment:
-      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
-      - TUNNEL_HOSTNAME=${CLOUDFLARE_DOMAIN}
-      - TUNNEL_NAME=${CLOUDFLARE_TUNNEL_NAME:-julia2-site}
-    command: tunnel run
+    command: tunnel --config /etc/cloudflared/config.yml run
     restart: unless-stopped
     volumes:
-      - cloudflared-config:/etc/cloudflared
+      - ./cloudflared-config.yml:/etc/cloudflared/config.yml
+      - ./cloudflared-credentials.json:/etc/cloudflared/credentials.json
+      - cloudflared-logs:/var/log
     # Для автоматической настройки DNS (требуется API токен)
     # command: >
     #   sh -c "
@@ -66,3 +64,4 @@ services:
 
 volumes:
   cloudflared-config:
+  cloudflared-logs:

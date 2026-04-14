@@ -1,0 +1,36 @@
+# Cloudflared Tunnel Configuration
+# This file configures the Cloudflare Tunnel for the Julia2 site
+
+tunnel: julia
+credentials-file: /etc/cloudflared/credentials.json
+
+ingress:
+  # Main domain - redirect to the app service
+  - hostname: yuliakimlach.ru
+    service: http://app:4173
+    originRequest:
+      connectTimeout: 30s
+      noTLSVerify: false
+      httpHostHeader: yuliakimlach.ru
+
+  # www subdomain - redirect to main domain
+  - hostname: www.yuliakimlach.ru
+    service: http://app:4173
+    originRequest:
+      connectTimeout: 30s
+      noTLSVerify: false
+      httpHostHeader: www.yuliakimlach.ru
+
+  # Catch-all rule for any other requests
+  - service: http_status:404
+
+# Logging configuration
+logfile: /var/log/cloudflared.log
+loglevel: info
+
+# Transport configuration
+transport-loglevel: info
+protocol: quic
+
+# Metrics configuration
+metrics: 0.0.0.0:2000
