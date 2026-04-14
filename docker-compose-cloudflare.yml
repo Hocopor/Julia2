@@ -1,5 +1,6 @@
+version: '3.8'
+
 services:
-  # Основное приложение - React сайт
   app:
     build:
       context: .
@@ -25,7 +26,6 @@ services:
       retries: 3
       start_period: 40s
 
-  # Cloudflare Tunnel для доступа из интернета
   cloudflared:
     image: cloudflare/cloudflared:latest
     depends_on:
@@ -38,6 +38,12 @@ services:
       run
       --token ${CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped
+    network_mode: "host"
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   cloudflared-config:
