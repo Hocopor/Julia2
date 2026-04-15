@@ -84,7 +84,7 @@ export const landingContent = {
         title: 'КОНСУЛЬТАЦИЯ',
         rows: [
           { label: 'Время:', value: '50 МИНУТ' },
-          { label: 'Стоимость:', value: '2500 РУБЛЕЙ' },
+          { label: 'Стоимость:', value: '3000 РУБЛЕЙ' },
         ],
         ctaLabel: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
       },
@@ -93,7 +93,7 @@ export const landingContent = {
         title: 'ПАКЕТ (4 КОНСУЛЬТАЦИИ)',
         rows: [
           { label: 'Время:', value: '50 МИН × 4' },
-          { label: 'Стоимость:', value: '8500 РУБЛЕЙ' },
+          { label: 'Стоимость:', value: '11000 РУБЛЕЙ' },
         ],
         ctaLabel: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
       },
@@ -102,7 +102,7 @@ export const landingContent = {
         title: 'ПАКЕТ (8 КОНСУЛЬТАЦИЙ)',
         rows: [
           { label: 'Время:', value: '50 МИН × 8' },
-          { label: 'Стоимость:', value: '15000 РУБЛЕЙ' },
+          { label: 'Стоимость:', value: '21500 РУБЛЕЙ' },
         ],
         ctaLabel: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
       },
