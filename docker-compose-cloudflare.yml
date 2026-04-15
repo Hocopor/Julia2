@@ -7,6 +7,7 @@ services:
         - VITE_CTA_URL=${VITE_CTA_URL}
         - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
         - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+        - VITE_VK_URL=${VITE_VK_URL}
         - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
         - VITE_BASE_PATH=/
     ports:
@@ -15,6 +16,7 @@ services:
       - VITE_CTA_URL=${VITE_CTA_URL}
       - VITE_WHATSAPP_URL=${VITE_WHATSAPP_URL}
       - VITE_TELEGRAM_URL=${VITE_TELEGRAM_URL}
+      - VITE_VK_URL=${VITE_VK_URL}
       - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
     command: serve -s dist -l 4173
     restart: unless-stopped

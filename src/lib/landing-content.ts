@@ -26,14 +26,14 @@ export const landingContent = {
     quote:
       'ПОМОГУ РАЗРЕШИТЬ ВНУТРЕННИЕ КОНФЛИКТЫ, РАЗОБРАТЬСЯ В СЕБЕ И СВОИХ ЧУВСТВАХ И ПРИБЛИЗИТЬСЯ К НАСТОЯЩЕМУ СПОКОЙСТВИЮ.',
     ctaLabel: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
-    imageSrc: assetPath('hero-photo-v2.png'),
+    imageSrc: assetPath('hero-photo-v3.png'),
     imageAlt: 'Юлия лежит на светлом диване',
   },
   about: {
     title: 'ОБО МНЕ',
     text:
       'Меня зовут Юлия, я практикующий психолог-консультант, в своей работе я опираюсь на доказательные методы психотерапии и работаю преимущественно в когнитивно-поведенческом подходе (КПТ).',
-    imageSrc: assetPath('about-photo-v2.png'),
+    imageSrc: assetPath('about-photo-v3.png'),
     imageAlt: 'Портрет Юлии в светлом интерьере',
   },
   issues: {
