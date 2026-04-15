@@ -12,17 +12,21 @@ export function ContactsSection() {
         </h2>
       </div>
       <div className="contactsLinks" aria-label="Контактные ссылки">
-        {contacts.items.map((item) => (
-          <a
-            className="contactsLink"
-            href={item.href}
-            key={item.label}
-            target={item.href.startsWith('http') ? '_blank' : undefined}
-            rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-          >
-            {item.label}
-          </a>
-        ))}
+        {contacts.items.map((item, index) => {
+          const isDevelopment = index === contacts.items.length - 1 // последний элемент - "РАЗРАБОТКА САЙТА"
+          return (
+            <a
+              className={`contactsLink ${isDevelopment ? 'contactsLink--development' : ''}`}
+              href={item.href}
+              key={item.label}
+              target={item.href.startsWith('http') ? '_blank' : undefined}
+              rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+              data-is-development={isDevelopment}
+            >
+              {item.label}
+            </a>
+          )
+        })}
       </div>
     </section>
   )

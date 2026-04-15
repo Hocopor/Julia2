@@ -26,19 +26,19 @@ export const landingContent = {
     quote:
       'ПОМОГУ РАЗРЕШИТЬ ВНУТРЕННИЕ КОНФЛИКТЫ, РАЗОБРАТЬСЯ В СЕБЕ И СВОИХ ЧУВСТВАХ И ПРИБЛИЗИТЬСЯ К НАСТОЯЩЕМУ СПОКОЙСТВИЮ.',
     ctaLabel: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
-    imageSrc: assetPath('hero-photo-v3.png'),
+    imageSrc: assetPath('hero-photo-v4.png'),
     imageAlt: 'Юлия лежит на светлом диване',
   },
   about: {
     title: 'ОБО МНЕ',
     text:
       'Меня зовут Юлия, я практикующий психолог-консультант, в своей работе я опираюсь на доказательные методы психотерапии и работаю преимущественно в когнитивно-поведенческом подходе (КПТ).',
-    imageSrc: assetPath('about-photo-v3.png'),
+    imageSrc: assetPath('about-photo-v4.png'),
     imageAlt: 'Портрет Юлии в светлом интерьере',
   },
   issues: {
     title: 'С КАКИМИ ПРОБЛЕМАМИ Я РАБОТАЮ:',
-    flowerImageSrc: assetPath('issues-flower-v3.png'),
+    flowerImageSrc: assetPath('issues-flower-v4.png'),
     flowerImageAlt: 'Светлый цветок на длинном стебле',
     items: [
       {
@@ -72,9 +72,9 @@ export const landingContent = {
   },
   pricing: {
     title: 'УСЛОВИЯ РАБОТЫ',
-    flowerImageSrc: assetPath('pricing-flower-v3.png'),
+    flowerImageSrc: assetPath('pricing-flower-v4.png'),
     flowerImageAlt: 'Крупный светлый цветок',
-    seaImageSrc: assetPath('sea-photo-v3.png'),
+    seaImageSrc: assetPath('sea-photo-v4.png'),
     seaImageAlt: 'Спокойный морской пейзаж',
     note: [
       'Консультации проходят в онлайн-формате по видеосвязи в ЯндексТелемост',
@@ -112,7 +112,7 @@ export const landingContent = {
   },
   contacts: {
     title: 'КОНТАКТЫ',
-    imageSrc: assetPath('contacts-photo-v3.png'),
+    imageSrc: assetPath('contacts-photo-v4.png'),
     imageAlt: 'Юлия на берегу моря',
     items: [
       { label: 'WHATSAPP', href: links.whatsapp },

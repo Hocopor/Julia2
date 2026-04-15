@@ -4,7 +4,7 @@ const http = require('http');
 const options = {
   hostname: 'localhost',
   port: 5173,
-  path: '/Julia2/assets/hero-photo-v3.png',
+  path: '/Julia2/assets/hero-photo-v4.png',
   method: 'GET'
 };
 

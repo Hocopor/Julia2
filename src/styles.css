@@ -442,6 +442,22 @@ a {
   text-underline-offset: 3px;
 }
 
+/* Стили для ссылки "РАЗРАБОТКА САЙТА" */
+.contactsLink--development {
+  grid-column: 1 / -1; /* Занимает всю ширину строки */
+  min-height: 30px; /* Меньшая высота */
+  font-size: 9px; /* Уменьшенный шрифт */
+  letter-spacing: 0.01em;
+  border-left: none !important; /* Убираем левую границу */
+  border-top: 1px solid var(--border-light); /* Верхняя граница отделяет от основных ссылок */
+  color: var(--text-muted); /* Приглушенный цвет текста */
+}
+
+/* Убираем border-left у следующего элемента после development ссылки */
+.contactsLink--development + .contactsLink {
+  border-left: none;
+}
+
 @media (max-width: 420px) {
   .pageBg {
     padding: 6px 4px 10px;
@@ -467,6 +483,11 @@ a {
   .contactsLink {
     font-size: 10px;
     letter-spacing: 0.02em;
+  }
+
+  .contactsLink--development {
+    font-size: 8px;
+    min-height: 26px;
   }
 }
 
@@ -502,6 +523,11 @@ a {
 
   .contactsLink {
     font-size: 11px;
+  }
+
+  .contactsLink--development {
+    font-size: 9px;
+    min-height: 28px;
   }
 }
 
@@ -547,6 +573,11 @@ a {
   .contactsLink {
     font-size: 11px;
     letter-spacing: 0.035em;
+  }
+
+  .contactsLink--development {
+    font-size: 9px;
+    min-height: 28px;
   }
 }
 
@@ -715,6 +746,11 @@ a {
     min-height: 52px;
     font-size: 12px;
     letter-spacing: 0.06em;
+  }
+
+  .contactsLink--development {
+    font-size: 10px;
+    min-height: 36px;
   }
 }
 
