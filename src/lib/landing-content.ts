@@ -2,6 +2,7 @@ const fallbackLinks = {
   cta: '#contact',
   whatsapp: 'https://wa.me/placeholder',
   telegram: 'https://t.me/placeholder',
+  vk: 'https://vk.com/placeholder',
   developedBy: '#development',
 } as const
 
@@ -9,6 +10,7 @@ export const links = {
   cta: import.meta.env.VITE_CTA_URL || fallbackLinks.cta,
   whatsapp: import.meta.env.VITE_WHATSAPP_URL || fallbackLinks.whatsapp,
   telegram: import.meta.env.VITE_TELEGRAM_URL || fallbackLinks.telegram,
+  vk: import.meta.env.VITE_VK_URL || fallbackLinks.vk,
   developedBy: import.meta.env.VITE_DEVELOPED_BY_URL || fallbackLinks.developedBy,
 } as const
 
@@ -30,7 +32,7 @@ export const landingContent = {
   about: {
     title: 'ОБО МНЕ',
     text:
-      'Меня зовут Юлия, и я практикующий психолог-консультант, в своей работе я опираюсь на доказательные методы психотерапии и работаю преимущественно в когнитивно-поведенческом подходе (КПТ).',
+      'Меня зовут Юлия, я практикующий психолог-консультант, в своей работе я опираюсь на доказательные методы психотерапии и работаю преимущественно в когнитивно-поведенческом подходе (КПТ).',
     imageSrc: assetPath('about-photo-v2.png'),
     imageAlt: 'Портрет Юлии в светлом интерьере',
   },
@@ -115,6 +117,7 @@ export const landingContent = {
     items: [
       { label: 'WHATSAPP', href: links.whatsapp },
       { label: 'TELEGRAM', href: links.telegram },
+      { label: 'VK', href: links.vk },
       { label: 'РАЗРАБОТКА САЙТА', href: links.developedBy },
     ],
   },
