@@ -38,7 +38,7 @@ export const landingContent = {
   },
   issues: {
     title: 'С КАКИМИ ПРОБЛЕМАМИ Я РАБОТАЮ:',
-    flowerImageSrc: assetPath('issues-flower-v2.png'),
+    flowerImageSrc: assetPath('issues-flower-v3.png'),
     flowerImageAlt: 'Светлый цветок на длинном стебле',
     items: [
       {
@@ -72,9 +72,9 @@ export const landingContent = {
   },
   pricing: {
     title: 'УСЛОВИЯ РАБОТЫ',
-    flowerImageSrc: assetPath('pricing-flower-v2.png'),
+    flowerImageSrc: assetPath('pricing-flower-v3.png'),
     flowerImageAlt: 'Крупный светлый цветок',
-    seaImageSrc: assetPath('sea-photo-v2.png'),
+    seaImageSrc: assetPath('sea-photo-v3.png'),
     seaImageAlt: 'Спокойный морской пейзаж',
     note: [
       'Консультации проходят в онлайн-формате по видеосвязи в ЯндексТелемост',
@@ -112,7 +112,7 @@ export const landingContent = {
   },
   contacts: {
     title: 'КОНТАКТЫ',
-    imageSrc: assetPath('contacts-photo-v2.png'),
+    imageSrc: assetPath('contacts-photo-v3.png'),
     imageAlt: 'Юлия на берегу моря',
     items: [
       { label: 'WHATSAPP', href: links.whatsapp },
