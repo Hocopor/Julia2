@@ -141,7 +141,7 @@ a {
 
 .quoteCardText {
   margin: 0;
-  font-size: 6px;
+  font-size: 9px;
   line-height: 1.45;
   text-align: center;
   text-transform: uppercase;
@@ -626,7 +626,7 @@ a {
   }
 
   .quoteCardText {
-    font-size: 6.5px;
+    font-size: 9.75px;
   }
 
   .ctaButton {
