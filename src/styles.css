@@ -147,6 +147,14 @@ a {
   text-transform: uppercase;
 }
 
+.quoteCardAccent {
+  font-weight: 700;
+}
+
+.quoteCardAccent em {
+  font-style: italic;
+}
+
 .ctaButton {
   display: inline-flex;
   min-height: 42px;

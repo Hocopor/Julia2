@@ -18,7 +18,13 @@ export function HeroSection() {
       <div className="heroImageWrap">
         <img className="heroImage" src={hero.imageSrc} alt={hero.imageAlt} />
         <div className="quoteCard">
-          <p className="quoteCardText">{hero.quote}</p>
+          <p className="quoteCardText">
+            ПОМОГУ РАЗРЕШИТЬ ВНУТРЕННИЕ КОНФЛИКТЫ,{' '}
+            <strong className="quoteCardAccent">
+              <em>РАЗОБРАТЬСЯ В СЕБЕ И СВОИХ ЧУВСТВАХ</em>
+            </strong>
+            , И ПРИБЛИЗИТЬСЯ К НАСТОЯЩЕМУ СПОКОЙСТВИЮ.
+          </p>
         </div>
       </div>
       <CTAButton href={links.cta} label={hero.ctaLabel} />
