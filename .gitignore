@@ -15,3 +15,4 @@ test-base-url.html
 test-dev-server.js
 test-asset.js
 test-dev-server.mjs
+.env2
