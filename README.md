@@ -50,6 +50,7 @@ npm run preview
 - [docker-compose.yml](/A:/DevAI/Projects/Site/Julia2/docker-compose.yml)
 - [Dockerfile](/A:/DevAI/Projects/Site/Julia2/Dockerfile)
 - [DOCKER-DEPLOY.md](/A:/DevAI/Projects/Site/Julia2/DOCKER-DEPLOY.md)
+- [DEPLOY-CLEAN-SERVER.md](/A:/DevAI/Projects/Site/Julia2/DEPLOY-CLEAN-SERVER.md)
 - [deploy-server.sh](/A:/DevAI/Projects/Site/Julia2/deploy-server.sh)
 - [deploy/caddy/Caddyfile.example](/A:/DevAI/Projects/Site/Julia2/deploy/caddy/Caddyfile.example)
 
