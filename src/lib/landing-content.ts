@@ -14,7 +14,16 @@ export const links = {
   developedBy: import.meta.env.VITE_DEVELOPED_BY_URL || fallbackLinks.developedBy,
 } as const
 
+function trimTrailingSlashes(value: string) {
+  return value.replace(/\/+$/, '')
+}
+
 function assetPath(fileName: string) {
+  const externalAssetBase = import.meta.env.VITE_ASSET_BASE_URL?.trim()
+  if (externalAssetBase) {
+    return `${trimTrailingSlashes(externalAssetBase)}/assets/${fileName}`
+  }
+
   return `${import.meta.env.BASE_URL}assets/${fileName}`
 }
 

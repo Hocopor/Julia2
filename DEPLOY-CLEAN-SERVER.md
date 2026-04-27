@@ -155,6 +155,12 @@ git checkout deploy/direct-server-yuliakimlach
 
 Если ветка будет переименована или смержена, используйте актуальную ветку деплоя.
 
+Если разворачиваете именно CDN-вариант из отдельной ветки, переключитесь на:
+
+```bash
+git checkout feature/yandex-cdn
+```
+
 ## Шаг 9. Подготовить `.env`
 
 ```bash
@@ -171,6 +177,7 @@ VITE_TELEGRAM_URL=https://t.me/...
 VITE_VK_URL=https://vk.com/...
 VITE_DEVELOPED_BY_URL=https://t.me/...
 VITE_BASE_PATH=/
+VITE_ASSET_BASE_URL=
 PRIMARY_DOMAIN=yuliakimlach.ru
 APP_PORT=4180
 COMPOSE_PROJECT_NAME=julia2
@@ -179,8 +186,19 @@ COMPOSE_PROJECT_NAME=julia2
 Важно:
 
 - `VITE_BASE_PATH=/`
+- `VITE_ASSET_BASE_URL` оставьте пустым, если CDN ещё не подключён
 - `APP_PORT=4180` можно менять, если он занят
 - если на сервере уже есть другой сайт на `4180`, поставьте `4181` или другой свободный локальный порт
+
+Если подключаете `Yandex Cloud CDN` для изображений, задайте:
+
+```env
+VITE_ASSET_BASE_URL=https://cdn.yuliakimlach.ru
+```
+
+Подробности в:
+
+- `YANDEX-CDN.md`
 
 ## Шаг 10. Проверить, что локальный порт свободен
 

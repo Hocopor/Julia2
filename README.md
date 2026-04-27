@@ -4,6 +4,8 @@
 
 В этой ветке деплой переведён с `Cloudflare Tunnel` на прямую публикацию с VPS через общий reverse proxy.
 
+В ветке `feature/yandex-cdn` поверх этого дополнительно подготовлена схема ускорения изображений через `Yandex Cloud CDN`.
+
 ## Локальная разработка
 
 ```bash
@@ -30,6 +32,7 @@ npm run preview
 - `VITE_VK_URL`
 - `VITE_DEVELOPED_BY_URL`
 - `VITE_BASE_PATH`
+- `VITE_ASSET_BASE_URL`
 
 Серверные переменные деплоя:
 
@@ -51,6 +54,7 @@ npm run preview
 - [Dockerfile](/A:/DevAI/Projects/Site/Julia2/Dockerfile)
 - [DOCKER-DEPLOY.md](/A:/DevAI/Projects/Site/Julia2/DOCKER-DEPLOY.md)
 - [DEPLOY-CLEAN-SERVER.md](/A:/DevAI/Projects/Site/Julia2/DEPLOY-CLEAN-SERVER.md)
+- [YANDEX-CDN.md](/A:/DevAI/Projects/Site/Julia2/YANDEX-CDN.md)
 - [deploy-server.sh](/A:/DevAI/Projects/Site/Julia2/deploy-server.sh)
 - [deploy/caddy/Caddyfile.example](/A:/DevAI/Projects/Site/Julia2/deploy/caddy/Caddyfile.example)
 

@@ -10,6 +10,7 @@ services:
         - VITE_VK_URL=${VITE_VK_URL}
         - VITE_DEVELOPED_BY_URL=${VITE_DEVELOPED_BY_URL}
         - VITE_BASE_PATH=${VITE_BASE_PATH:-/}
+        - VITE_ASSET_BASE_URL=${VITE_ASSET_BASE_URL}
     ports:
       - "127.0.0.1:${APP_PORT:-4180}:8080"
     restart: unless-stopped

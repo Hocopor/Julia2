@@ -61,12 +61,23 @@ VITE_TELEGRAM_URL=https://t.me/...
 VITE_VK_URL=https://vk.com/...
 VITE_DEVELOPED_BY_URL=https://t.me/...
 VITE_BASE_PATH=/
+VITE_ASSET_BASE_URL=
 PRIMARY_DOMAIN=yuliakimlach.ru
 APP_PORT=4180
 COMPOSE_PROJECT_NAME=julia2
 ```
 
 Если на сервере уже есть сайт на `4180`, просто выберите другой локальный порт, например `4181`, `4280` или `4380`.
+
+Если хотите включить `Yandex Cloud CDN` только для изображений, дополнительно задайте:
+
+```env
+VITE_ASSET_BASE_URL=https://cdn.yuliakimlach.ru
+```
+
+Подробная схема описана в:
+
+- `YANDEX-CDN.md`
 
 ### 2. Проверить DNS
 
